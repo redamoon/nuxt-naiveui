@@ -1,26 +1,53 @@
 <template>
-  <h1>Hello, {{ name }}</h1>
-  <NButton @click="alert">alert ボタン</NButton>
-  <NDataTable
+  <NConfigProvider :theme-overrides="themeOverrides">
+    <h1>Hello, {{ name }}</h1>
+    <NButton @click="alert" type="primary">alert ボタン</NButton>
+    <NDataTable
       :data="data"
       :columns="columns"
-  />
+    />
+  </NConfigProvider>
 </template>
 
 <script>
   import { defineComponent } from 'vue'
-  import { NTag, NButton, NDataTable } from 'naive-ui'
+  import { NConfigProvider, NTag, NButton, NDataTable } from 'naive-ui'
+
 
 
   export default defineComponent({
     components: {
       NButton,
       NDataTable,
-      NTag
+      NTag,
+      NConfigProvider
+    },
+    setup() {
+      // テーマの変更はsetupで行う
+      // FYI : https://github.com/tusen-ai/naive-ui/issues/649
+      const themeOverrides = {
+        common: {
+          primaryColor: '#07B53B',
+          primaryColorHover: '#04942f',
+          fontSize: '100px'
+        },
+        Button: {
+          primaryColor: '#07B53B',
+          textColor: '#CCC'
+        },
+        Select: {
+          peers: {
+            InternalSelection: {
+              textColor: '#FF0000'
+            }
+          }
+        }
+      }
+      return { themeOverrides };
     },
     data() {
       return {
-        name: 'ググりモグラ',
+        name: 'Redamoon',
         columns: [
           {
             title: "No",
@@ -41,7 +68,7 @@
                     style: {
                       marginRight: "6px"
                     },
-                    type: "info",
+                    type: "primary",
                     bordered: false
                   },
                   {

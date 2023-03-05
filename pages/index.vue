@@ -6,6 +6,11 @@
       :data="data"
       :columns="columns"
     />
+    <h2>Expand rows</h2>
+    <NDataTable
+      :data="data"
+      :columns="columnsExpand"
+    />
   </NConfigProvider>
 </template>
 
@@ -48,6 +53,24 @@
     data() {
       return {
         name: 'Redamoon',
+        columnsExpand: [
+          {
+            title: "No",
+            key: "age"
+          },
+          {
+            title: "Title",
+            key: "name"
+          },
+          {
+            type: "expand",
+            // expandable 設定の拡張
+            expandable: (rowData) => rowData?.expandData && rowData.expandData !== '',
+            renderExpand: (rowData) => {
+              return `${rowData.expandData}`;
+            }
+          }
+        ],
         columns: [
           {
             title: "No",
@@ -99,7 +122,8 @@
             chinese: 98,
             math: 66,
             english: 89,
-            tags: ["wow"]
+            tags: ["wow"],
+            expandData: ''
           },
           {
             key: 2,
@@ -109,7 +133,8 @@
             chinese: 98,
             math: 66,
             english: 89,
-            tags: ["cool", "teacher"]
+            tags: ["cool", "teacher"],
+            expandData: '開閉時2'
           },
           {
             key: 3,
@@ -119,17 +144,19 @@
             chinese: 88,
             math: 99,
             english: 89,
-            tags: ["wow"]
+            tags: ["wow"],
+            expandData: '開閉時3'
           },
           {
-            key: 3,
+            key: 4,
             name: 'Jim Red',
             age: 32,
             address: 'London No. 2 Lake Park',
             chinese: 88,
             math: 99,
             english: 89,
-            tags: ["wow"]
+            tags: ["wow"],
+            expandData: '開閉時4'
           }
         ]
       }

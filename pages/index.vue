@@ -18,8 +18,6 @@
   import { defineComponent } from 'vue'
   import { NConfigProvider, NTag, NButton, NDataTable } from 'naive-ui'
 
-
-
   export default defineComponent({
     components: {
       NButton,
